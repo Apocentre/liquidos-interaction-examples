@@ -1,5 +1,5 @@
 {
-  "address": "3vVWsiMcHXqacBY1ApXj7YFrpmob3uDGm3TTStcywKEn",
+  "address": "ADL8VVK6QMFPEZmkgeGSSyQrfnaRD7FHtDzWjh6c4QCX",
   "metadata": {
     "name": "onlybags",
     "version": "0.1.0",
@@ -144,6 +144,113 @@
       ]
     },
     {
+      "name": "create_staking_pool",
+      "docs": [
+        "CreateStakingPool",
+        "",
+        "Creates a new staking pool",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts"
+      ],
+      "discriminator": [
+        104,
+        58,
+        70,
+        37,
+        225,
+        212,
+        145,
+        93
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token",
+          "writable": true
+        },
+        {
+          "name": "staking_state",
+          "writable": true
+        },
+        {
+          "name": "pool_info",
+          "writable": true
+        },
+        {
+          "name": "pool_authority",
+          "writable": true
+        },
+        {
+          "name": "reward_token_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "staking_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "create_tax_token",
       "docs": [
         "CreateToken",
@@ -157,7 +264,8 @@
         "* `symbol` - The symbol of the token (used in the metadata account)",
         "* `uri` - The uri of the token (used in the metadata account)",
         "* `fee_bps` - Transfer fee BPS",
-        "* `max_fee` - Max fee that can be applied"
+        "* `max_fee` - Max fee that can be applied",
+        "* `curve_type` - The type of the curve. The numner defines the version e.g. CurveV1 then curve_type = 1"
       ],
       "discriminator": [
         241,
@@ -334,6 +442,10 @@
         {
           "name": "max_fee",
           "type": "u64"
+        },
+        {
+          "name": "curve_type",
+          "type": "u8"
         }
       ]
     },
@@ -349,7 +461,8 @@
         "* `ctx` - The Anchor context holding the accounts",
         "* `name` - The name of the token (used in the metadata account)",
         "* `symbol` - The symbol of the token (used in the metadata account)",
-        "* `uri` - The uri of the token (used in the metadata account)"
+        "* `uri` - The uri of the token (used in the metadata account)",
+        "* `curve_type` - The type of the curve. The numner defines the version e.g. CurveV1 then curve_type = 1"
       ],
       "discriminator": [
         84,
@@ -514,6 +627,10 @@
         {
           "name": "uri",
           "type": "string"
+        },
+        {
+          "name": "curve_type",
+          "type": "u8"
         }
       ]
     },
@@ -526,11 +643,12 @@
         "",
         "* `ctx` - The Anchor context holding the accounts",
         "* `treasury` - The treasury account that receives fees",
-        "* `sol_target` - Current target of SOL each pool should receive before it goes to the",
         "* `protocol_fee` - Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium",
         "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
         "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
-        "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included"
+        "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
+        "* `staking_allocation_bps` - Staking allocation (BPS). This percentage of the total allocation will be distributed though",
+        "the staking program"
       ],
       "discriminator": [
         175,
@@ -567,10 +685,6 @@
           "type": "pubkey"
         },
         {
-          "name": "sol_target",
-          "type": "u64"
-        },
-        {
           "name": "protocol_fee",
           "type": "u64"
         },
@@ -584,6 +698,10 @@
         },
         {
           "name": "total_token_supply",
+          "type": "u64"
+        },
+        {
+          "name": "staking_allocation_bps",
           "type": "u64"
         }
       ]
@@ -843,6 +961,77 @@
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "update_state",
+      "docs": [
+        "UpdateState",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `staking_program` - The staking program Id",
+        "* `staking_program_state` - The state of the staking program",
+        "* `protocol_fee` - Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
+        "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
+        "* `staking_allocation_bps` - Staking allocation (BPS). This percentage of the total allocation will be distributed though",
+        "the staking program"
+      ],
+      "discriminator": [
+        135,
+        112,
+        215,
+        75,
+        247,
+        185,
+        53,
+        176
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "staking_program",
+          "type": "pubkey"
+        },
+        {
+          "name": "staking_program_state",
+          "type": "pubkey"
+        },
+        {
+          "name": "protocol_fee",
+          "type": "u64"
+        },
+        {
+          "name": "trade_fee_bps",
+          "type": "u64"
+        },
+        {
+          "name": "creator_fee",
+          "type": "u64"
+        },
+        {
+          "name": "total_token_supply",
+          "type": "u64"
+        },
+        {
+          "name": "staking_allocation_bps",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -917,53 +1106,8 @@
   "errors": [
     {
       "code": 6000,
-      "name": "OnlyOwner",
-      "msg": "Only owner"
-    },
-    {
-      "code": 6001,
-      "name": "SlippageViolation",
-      "msg": "Slippage violation"
-    },
-    {
-      "code": 6002,
-      "name": "WrongTreasury",
-      "msg": "Wrong treasury"
-    },
-    {
-      "code": 6003,
-      "name": "WrongTokenCreator",
-      "msg": "Wrong token creator"
-    },
-    {
-      "code": 6004,
-      "name": "CurveClosed",
-      "msg": "Curve closed"
-    },
-    {
-      "code": 6005,
-      "name": "CurveNotComplete",
-      "msg": "Curve not complete"
-    },
-    {
-      "code": 6006,
-      "name": "InvalidCurveToken",
-      "msg": "Invalid curve token"
-    },
-    {
-      "code": 6007,
-      "name": "WrongProgramId",
-      "msg": "Wrong program id"
-    },
-    {
-      "code": 6008,
-      "name": "WrongIxData",
-      "msg": "Wrong instruction data"
-    },
-    {
-      "code": 6009,
-      "name": "ExpectedMoveLiquidityIx",
-      "msg": "Expected MoveLiquidity ix"
+      "name": "DecimalError",
+      "msg": "Decimal error"
     }
   ],
   "types": [
@@ -972,6 +1116,17 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "curve_type",
+            "docs": [
+              "The type of the curve. This implement the main logic of the curve i.e. the formulas"
+            ],
+            "type": {
+              "defined": {
+                "name": "CurveType"
+              }
+            }
+          },
           {
             "name": "token_creator",
             "docs": [
@@ -985,13 +1140,6 @@
               "The mint account of the token associated with this curve"
             ],
             "type": "pubkey"
-          },
-          {
-            "name": "sol_target",
-            "docs": [
-              "Target of SOL each pool should receive"
-            ],
-            "type": "u64"
           },
           {
             "name": "protocol_fee",
@@ -1036,6 +1184,13 @@
             "type": "u64"
           },
           {
+            "name": "staking_allocation_bps",
+            "docs": [
+              "Staking allocation (BPS). This percentage of the total allocation will be distributed though the staking program"
+            ],
+            "type": "u64"
+          },
+          {
             "name": "price",
             "docs": [
               "The current price of the curve in lamports"
@@ -1065,6 +1220,10 @@
         "kind": "struct",
         "fields": [
           {
+            "name": "curve_type",
+            "type": "u8"
+          },
+          {
             "name": "buyer",
             "type": "pubkey"
           },
@@ -1093,8 +1252,26 @@
             "type": "string"
           },
           {
+            "name": "sol_balance",
+            "type": "string"
+          },
+          {
             "name": "buyer_balance",
             "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CurveType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "CurveV1"
+          },
+          {
+            "name": "CurveV2"
           }
         ]
       }
@@ -1104,6 +1281,10 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "curve_type",
+            "type": "u8"
+          },
           {
             "name": "seller",
             "type": "pubkey"
@@ -1126,6 +1307,10 @@
           },
           {
             "name": "circulating_supply",
+            "type": "string"
+          },
+          {
+            "name": "sol_balance",
             "type": "string"
           },
           {
@@ -1155,11 +1340,22 @@
             "type": "pubkey"
           },
           {
-            "name": "sol_target",
+            "name": "staking_program",
             "docs": [
-              "Current target of SOL each pool should receive"
+              "The staking program Id"
             ],
-            "type": "u64"
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "staking_program_state",
+            "docs": [
+              "The state of the staking program"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
           },
           {
             "name": "protocol_fee",
@@ -1188,6 +1384,13 @@
               "The total supply of the newly created tokens in the lowest denomination i.e. decimals included"
             ],
             "type": "u64"
+          },
+          {
+            "name": "staking_allocation_bps",
+            "docs": [
+              "Staking allocation (BPS). This percentage of the total allocation will be distributed though the staking program"
+            ],
+            "type": "u64"
           }
         ]
       }
@@ -1197,6 +1400,10 @@
       "type": {
         "kind": "struct",
         "fields": [
+          {
+            "name": "curve_type",
+            "type": "u8"
+          },
           {
             "name": "creator",
             "type": "pubkey"
@@ -1222,8 +1429,10 @@
             "type": "pubkey"
           },
           {
-            "name": "has_tax",
-            "type": "bool"
+            "name": "tax",
+            "type": {
+              "option": "u16"
+            }
           }
         ]
       }
