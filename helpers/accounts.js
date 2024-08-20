@@ -39,3 +39,18 @@ export const raydiumObservationState = (poolState, programId) => PublicKey.findP
   [utf8.encode("observation"), poolState.toBuffer()],
   programId
 )
+
+export const poolAuthority = (state, programId) => PublicKey.findProgramAddressSync(
+  [utf8.encode("pool_authority"), state.toBuffer()],
+  programId
+)
+
+export const poolInfo = (state, rewardToken, programId) => PublicKey.findProgramAddressSync(
+  [utf8.encode("staking_pool"), state.toBuffer(), rewardToken.toBuffer()],
+  programId
+)
+
+export const userInfo = (state, user, rewardToken, programId) => PublicKey.findProgramAddressSync(
+  [utf8.encode("user_info"), user.toBuffer(), state.toBuffer(), rewardToken.toBuffer()],
+  programId
+)

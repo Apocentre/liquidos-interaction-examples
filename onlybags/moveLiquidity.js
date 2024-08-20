@@ -1,18 +1,23 @@
 import * as anchor from "@coral-xyz/anchor";
-import * as accounts from "./helpers/accounts.js";
-import {spl} from "@apocentre/solana-web3";
-import * as constants from "./helpers/constants.js";
-import {useWeb3} from "./useWeb3.js";
+import * as accounts from "../helpers/accounts.js";
+import Web3Pkg, {spl} from "@apocentre/solana-web3";
+import {provider} from "../helpers/provider.js";
+import {createAndSendV0Tx} from "../helpers/tx.js";
+import * as constants from "../helpers/constants.js";
+import config from "../config.json" assert { type: "json" };
+import buyerKey from "../../wallets/test/buyer1.json" assert { type: "json" };
 
-const {SystemProgram, PublicKey, SYSVAR_RENT_PUBKEY} = anchor.web3;
+const Web3 = Web3Pkg.default;
+const {SystemProgram, PublicKey, Keypair, SYSVAR_RENT_PUBKEY} = anchor.web3;
 
-export const moveLiquidity = async () => {
-  const web3 = useWeb3();
-  const program = await getProgram(web3);
+const main = async () => {
+  const deployer = provider.wallet.payer;
+  const web3 = Web3(deployer.publicKey);
+  const program = anchor.workspace.Onlybags;
   const tokenName = "TOKEN_3";
   const tokenSymbol= "SYMBOL_3";
-  const buyer = web3.wallet.publicKey;
-  const state = new PublicKey(constants.state);
+  const buyer = Keypair.fromSecretKey(Buffer.from(buyerKey))
+  const state = new PublicKey(config.onlyBagsState);
   const token = accounts.curveToken(state, tokenName, tokenSymbol, program.programId)[0];
   const bondingCurve = accounts.bondingCurve(state, token, program.programId)[0];
   
@@ -21,11 +26,11 @@ export const moveLiquidity = async () => {
   const raydiumProgram = constants.raydiumProgramDevnet;
   const [token0, token1] = token.toBuffer() < wsol.toBuffer() ? [token, wsol] : [wsol, token];
   const poolState = accounts.raydiumPoolState(ammConfig, token0, token1, raydiumProgram)[0];
-  const buyerAta = await web3.getAssociatedTokenAddress(token, buyer, true, spl.TOKEN_2022_PROGRAM_ID);
-  const buyerWsolAta = await web3.getAssociatedTokenAddress(wsol, buyer);
+  const buyerAta = await web3.getAssociatedTokenAddress(token, buyer.publicKey, true, spl.TOKEN_2022_PROGRAM_ID);
+  const buyerWsolAta = await web3.getAssociatedTokenAddress(wsol, buyer.publicKey);
   const [creatorToken0, creatorToken1] = token.toBuffer() < wsol.toBuffer() ? [buyerAta, buyerWsolAta] : [buyerWsolAta, buyerAta];
   const lpMint = accounts.raydiumLpMint(poolState, raydiumProgram)[0];
-  const creatorLpToken = await web3.getAssociatedTokenAddress(lpMint, buyer);
+  const creatorLpToken = await web3.getAssociatedTokenAddress(lpMint, buyer.publicKey);
   const [token0Vault, token1Vault] = token.toBuffer() < wsol.toBuffer()
   ? [accounts.raydiumTokenVault(poolState, token, raydiumProgram)[0], accounts.raydiumTokenVault(poolState, wsol, raydiumProgram)[0]] 
   : [accounts.raydiumTokenVault(poolState, wsol, raydiumProgram)[0], accounts.raydiumTokenVault(poolState, token, raydiumProgram)[0]];
@@ -35,7 +40,7 @@ export const moveLiquidity = async () => {
   const ix = await program.methods
   .moveLiquidity()
   .accounts({
-    buyer,
+    buyer: buyer.publicKey,
     state,
     bondingCurve,
     token,
@@ -63,17 +68,15 @@ export const moveLiquidity = async () => {
   })
   .instruction();
 
-
-  const priorityFeeIx = web3.setComputeUnitPrice(20000);
-  const latestBlockhash = await web3.connection.getLatestBlockhash('confirmed');
-  const messageV0 = new TransactionMessage({
-    payerKey: buyer,
-    recentBlockhash: latestBlockhash.blockhash,
-    instructions: [priorityFeeIx, ix],
-  }).compileToV0Message([]);
-
-
-  const tx = new VersionedTransaction(messageV0);
-
-  return await program.provider.sendAndConfirm(tx);
+  await createAndSendV0Tx(
+    provider,
+    [ix],
+    buyer.publicKey,
+    [buyer],
+    [],
+  );
 }
+
+main()
+.then(() => console.log("Success"))
+.catch(error => console.log("Error: ", error))

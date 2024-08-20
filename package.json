@@ -1,7 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "@coral-xyz/anchor": "^0.30.0",
-    "@apocentre/solana-web3": "Apocentre/solana-web3"
+    "@apocentre/solana-web3": "Apocentre/solana-web3",
+    "@coral-xyz/anchor": "^0.30.1"
   }
 }
