@@ -1,0 +1,444 @@
+{
+  "address": "GdyU6f76XkkeWF63CqhXDVXqx56Ldva4saVxEDpWJiaY",
+  "metadata": {
+    "name": "onlybags_swap_proxy",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "docs": [
+        "Initialize",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `treasury` - The treasury account that receives fees",
+        "* `protocol_fee` - Current protocol fees i.e. fees collected on each swap"
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "treasury",
+          "type": "pubkey"
+        },
+        {
+          "name": "protocol_fee_bps",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "swap_base_input",
+      "docs": [
+        "SwapBaseInput",
+        "",
+        "Use this when user enters the amount of input tokens he wants so sell",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `amount_in` - The amount of input token  to sell",
+        "* `minimum_amount_out` - minimum amount of the output to receive"
+      ],
+      "discriminator": [
+        143,
+        190,
+        90,
+        218,
+        196,
+        30,
+        51,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "treasury"
+        },
+        {
+          "name": "treasury_input_ata",
+          "writable": true
+        },
+        {
+          "name": "treasury_output_ata",
+          "writable": true
+        },
+        {
+          "name": "raydium_authority"
+        },
+        {
+          "name": "amm_config",
+          "address": "9zSzfkYy6awexsHvmggeH36pfVUdDGyCcwmjT3AQPBj6"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "input_token_program"
+        },
+        {
+          "name": "output_token_program"
+        },
+        {
+          "name": "input_token_mint"
+        },
+        {
+          "name": "output_token_mint"
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        },
+        {
+          "name": "cp_swap_program",
+          "address": "CPMDWBwJDtYax9qW7AyRuVC19Cc4L4Vcy4n2BHAbHkCW"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "minimum_amount_out",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "swap_base_output",
+      "docs": [
+        "SwapBaseOutput",
+        "",
+        "Use this when user enters the amount of output tokens he wants to receive",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `max_amount_in` - The max amount of input tokes to be sold",
+        "* `amount_out_less_fee` - The amount of output token user wants to buy"
+      ],
+      "discriminator": [
+        55,
+        217,
+        98,
+        86,
+        163,
+        74,
+        180,
+        173
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "treasury"
+        },
+        {
+          "name": "treasury_input_ata",
+          "writable": true
+        },
+        {
+          "name": "treasury_output_ata",
+          "writable": true
+        },
+        {
+          "name": "raydium_authority"
+        },
+        {
+          "name": "amm_config",
+          "address": "9zSzfkYy6awexsHvmggeH36pfVUdDGyCcwmjT3AQPBj6"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "input_token_program"
+        },
+        {
+          "name": "output_token_program"
+        },
+        {
+          "name": "input_token_mint"
+        },
+        {
+          "name": "output_token_mint"
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        },
+        {
+          "name": "cp_swap_program",
+          "address": "CPMDWBwJDtYax9qW7AyRuVC19Cc4L4Vcy4n2BHAbHkCW"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "max_amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_out_less_fee",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "State",
+      "discriminator": [
+        216,
+        146,
+        107,
+        94,
+        104,
+        75,
+        182,
+        177
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "SwapBaseInputEvent",
+      "discriminator": [
+        144,
+        39,
+        24,
+        19,
+        178,
+        165,
+        130,
+        254
+      ]
+    },
+    {
+      "name": "SwapBaseOutputEvent",
+      "discriminator": [
+        14,
+        237,
+        64,
+        113,
+        11,
+        91,
+        139,
+        20
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "OnlyOwner",
+      "msg": "Only owner"
+    },
+    {
+      "code": 6001,
+      "name": "WrongTreasury",
+      "msg": "Wrong treasury"
+    }
+  ],
+  "types": [
+    {
+      "name": "State",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "docs": [
+              "The owner that can handle various admin related tasks"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "docs": [
+              "The treasury account that receives fees"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "protocol_fee_bps",
+            "docs": [
+              "Current protocol fees i.e. fees collected on each swap"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapBaseInputEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount_sold",
+            "type": "u64"
+          },
+          {
+            "name": "amount_received",
+            "type": "u64"
+          },
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "input_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "output_token",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapBaseOutputEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount_sold",
+            "type": "u64"
+          },
+          {
+            "name": "amount_received",
+            "type": "u64"
+          },
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "input_token",
+            "type": "pubkey"
+          },
+          {
+            "name": "output_token",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}
