@@ -92,7 +92,93 @@
           "docs": [
             "The ATA of the WSOL token that is owned by the buyer. Create one if no already exists"
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "wsol_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "wsol_token"
@@ -110,7 +196,60 @@
           "docs": [
             "The ATA of the  token that is owned by the buyer. Create one if no already exists"
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "token_program",
@@ -166,7 +305,7 @@
       ],
       "accounts": [
         {
-          "name": "buyer",
+          "name": "payer",
           "writable": true,
           "signer": true
         },
@@ -227,6 +366,13 @@
         },
         {
           "name": "pool_authority",
+          "writable": true
+        },
+        {
+          "name": "staking_token"
+        },
+        {
+          "name": "staking_token_vault_ata",
           "writable": true
         },
         {
@@ -420,6 +566,10 @@
         {
           "name": "rent",
           "address": "SysvarRent111111111111111111111111111111111"
+        },
+        {
+          "name": "ix_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
         }
       ],
       "args": [
@@ -556,7 +706,60 @@
           "docs": [
             "The ATA that will hold the liquidity of the curve (token side)."
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "bonding_curve"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "bonding_curve",
@@ -613,6 +816,10 @@
         {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "ix_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
         }
       ],
       "args": [
@@ -647,8 +854,7 @@
         "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
         "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
         "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
-        "* `staking_allocation_bps` - Staking allocation (BPS). This percentage of the total allocation will be distributed though",
-        "the staking program"
+        "* `staking_allocation` - Staking allocation. The exact amount that will be distributed though the staking program"
       ],
       "discriminator": [
         175,
@@ -701,7 +907,7 @@
           "type": "u64"
         },
         {
-          "name": "staking_allocation_bps",
+          "name": "staking_allocation",
           "type": "u64"
         }
       ]
@@ -776,21 +982,161 @@
           }
         },
         {
-          "name": "token"
+          "name": "token",
+          "writable": true
         },
         {
           "name": "buyer_ata",
           "docs": [
             "The ATA of the  token that is owned by the buyer. Create one if no already exists"
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "buyer_wsol_ata",
           "docs": [
             "The ATA of the WSOL token that is owned by the buyer. Create one if no already exists"
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "wsol_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "amm_config",
@@ -941,7 +1287,60 @@
           "docs": [
             "The ATA of the  token that is owned by the seller. Create one if no already exists"
           ],
-          "writable": true
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "seller"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
         },
         {
           "name": "associated_token_program",
@@ -976,8 +1375,7 @@
         "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
         "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
         "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
-        "* `staking_allocation_bps` - Staking allocation (BPS). This percentage of the total allocation will be distributed though",
-        "the staking program"
+        "* `staking_allocation` - Staking allocation. The exact amount that will be distributed though the staking program"
       ],
       "discriminator": [
         135,
@@ -1028,7 +1426,7 @@
           "type": "u64"
         },
         {
-          "name": "staking_allocation_bps",
+          "name": "staking_allocation",
           "type": "u64"
         }
       ]
@@ -1106,8 +1504,73 @@
   "errors": [
     {
       "code": 6000,
-      "name": "DecimalError",
-      "msg": "Decimal error"
+      "name": "OnlyOwner",
+      "msg": "Only owner"
+    },
+    {
+      "code": 6001,
+      "name": "SlippageViolation",
+      "msg": "Slippage violation"
+    },
+    {
+      "code": 6002,
+      "name": "WrongTreasury",
+      "msg": "Wrong treasury"
+    },
+    {
+      "code": 6003,
+      "name": "WrongTokenCreator",
+      "msg": "Wrong token creator"
+    },
+    {
+      "code": 6004,
+      "name": "CurveClosed",
+      "msg": "Curve closed"
+    },
+    {
+      "code": 6005,
+      "name": "CurveNotComplete",
+      "msg": "Curve not complete"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidCurveToken",
+      "msg": "Invalid curve token"
+    },
+    {
+      "code": 6007,
+      "name": "WrongProgramId",
+      "msg": "Wrong program id"
+    },
+    {
+      "code": 6008,
+      "name": "WrongIxData",
+      "msg": "Wrong instruction data"
+    },
+    {
+      "code": 6009,
+      "name": "ExpectedMoveLiquidityIx",
+      "msg": "Expected MoveLiquidity ix"
+    },
+    {
+      "code": 6010,
+      "name": "ExpectedCreateStakingPoolIx",
+      "msg": "Expected CreateStakingPool ix"
+    },
+    {
+      "code": 6011,
+      "name": "CurveTypeNotSupported",
+      "msg": "Curve type not supported"
+    },
+    {
+      "code": 6012,
+      "name": "WrontStakingProgram",
+      "msg": "Wrong staking program"
+    },
+    {
+      "code": 6013,
+      "name": "WrongStakingProgramState",
+      "msg": "Wrong staking program state"
     }
   ],
   "types": [
@@ -1184,9 +1647,9 @@
             "type": "u64"
           },
           {
-            "name": "staking_allocation_bps",
+            "name": "staking_allocation",
             "docs": [
-              "Staking allocation (BPS). This percentage of the total allocation will be distributed though the staking program"
+              "Staking allocation. The exact amount that will be distributed though the staking program"
             ],
             "type": "u64"
           },
@@ -1328,7 +1791,7 @@
           {
             "name": "owner",
             "docs": [
-              "The owner that can handle various admin related teasks"
+              "The owner that can handle various admin related tasks"
             ],
             "type": "pubkey"
           },
@@ -1386,9 +1849,9 @@
             "type": "u64"
           },
           {
-            "name": "staking_allocation_bps",
+            "name": "staking_allocation",
             "docs": [
-              "Staking allocation (BPS). This percentage of the total allocation will be distributed though the staking program"
+              "Staking allocation. The exact amount that will be distributed though the staking program"
             ],
             "type": "u64"
           }
