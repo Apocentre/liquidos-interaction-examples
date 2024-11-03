@@ -1,0 +1,26 @@
+{
+  "curveLib": "0xD1ED6736C409b9Ca585d80c2F988fC7050E400A4",
+  "curveV1Lib": "0x2208D8D664EaaB78D327387c767217FaDdC0BE09",
+  "lockerLib": "0xd768020DB27BB4D15185B847ca13F512d697A65a",
+  "stakingLib": "0xDb53d8662496FA465CBd2816167184C6e7204B53",
+  "onlybagsFactoryAddr": "0x04aBEcb7A6209BB5f43033c23C912C2859266fA0",
+  "onlybagsCurveParams": {
+    "protocolFee": "1000000000000000000",
+    "creatorFee": "2000000000000000000",
+    "tradeFeeBps": 100,
+    "owner": "0x428527362cAfeb0E26F9D5f5e44640ba4EECFCe4",
+    "treasury": "0x428527362cAfeb0E26F9D5f5e44640ba4EECFCe4",
+    "wbera": "0x7507c1dc16935B82698e4C63f2746A2fCf994dF8",
+    "kodiakUniV3Factory": "0x217Cd80795EfCa5025d47023da5c03a24fA95356",
+    "kodiakNonfungiblePositionManager": "0xc0568c6e9d5404124c8aa9efd955f3f14c8e64a6"
+  },
+  "stakingParams": {
+    "stakingProtocolFeeBps": "1000",
+    "stakingAllocation": "1000000000000000000000000",
+    "stakingDuration": "86400",
+    "stakingDelay": "120",
+    "stakingClaimDelay": "60",
+    "stakingWithdrawDelay": "120"
+  },
+  "onlybagsCurveAddr": "0x067a5c3258DeADc42A9bb2310500a14F0dd2cF9F"
+}
