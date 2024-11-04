@@ -15,8 +15,8 @@ const main = async () => {
   const tokenSymbol= "SYMBOL_TAX_HUB_2";
   const state = new PublicKey(config.onlyBagsState);
   const tokenCreator = Keypair.fromSecretKey(Buffer.from(tokenCreatorKey))
-  const program = anchor.workspace.Onlybags;
-  const stakingProgram = anchor.workspace.OnlybagsStaking;
+  const program = anchor.workspace.Berapump;
+  const stakingProgram = anchor.workspace.BerapumpStaking;
   const deployer = provider.wallet.payer;
   const web3 = Web3(deployer.publicKey)
   const token = accounts.curveToken(state, tokenName, tokenSymbol, program.programId)[0];
@@ -32,7 +32,7 @@ const main = async () => {
   .createTaxToken(
     tokenName,
     tokenSymbol,
-    "http://onlybags.fun",
+    "http://berapump.fun",
     new BN(200), // 2% transfer fee
     new BN(web3.toBase("20000000", 6)), // max fee that can be charged is 2% of the total supply i.e. 20M
   )

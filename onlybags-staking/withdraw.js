@@ -12,7 +12,7 @@ const {SystemProgram, Keypair, PublicKey} = anchor.web3
 
 const main = async () => {
   const stakingState = new PublicKey(config.stakingState);
-  const stakingProgram = anchor.workspace.OnlybagsStaking;
+  const stakingProgram = anchor.workspace.BerapumpStaking;
   const deployer = provider.wallet.payer;
   const web3 = Web3(deployer.publicKey);
   const user = Keypair.fromSecretKey(Buffer.from(userKey))

@@ -1,6 +1,6 @@
 const {ethers} = require('ethers')
 const {toBase} = require("./utils")
-const {onlybagsCurveAddr, onlybagsFactoryAddr} = require("./.config.json");
+const {berapumpCurveAddr, berapumpFactoryAddr} = require("./.config.json");
 
 const CurveTypes = {
   "v1": 0,
@@ -9,11 +9,11 @@ const CurveTypes = {
 
 async function main() {
   const [owner] = await ethers.getSigners()
-  const onlybagsFactory = await ethers.getContractAt("OnlybagsFactory", onlybagsFactoryAddr);
+  const berapumpFactory = await ethers.getContractAt("BerapumpFactory", berapumpFactoryAddr);
 
-  await onlybagsFactory.connect(owner).deploy({
+  await berapumpFactory.connect(owner).deploy({
     maxSupply: toBase(1_000_000_000),
-    onlybagsCurve: onlybagsCurveAddr,
+    berapumpCurve: berapumpCurveAddr,
     curveType: CurveTypes.v1,
     name: "b2",
     symbol: "B2",

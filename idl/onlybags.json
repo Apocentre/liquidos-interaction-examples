@@ -1,10 +1,10 @@
 {
   "address": "ADL8VVK6QMFPEZmkgeGSSyQrfnaRD7FHtDzWjh6c4QCX",
   "metadata": {
-    "name": "onlybags",
+    "name": "berapump",
     "version": "0.1.0",
     "spec": "0.1.0",
-    "description": "onlybags main program"
+    "description": "berapump main program"
   },
   "instructions": [
     {

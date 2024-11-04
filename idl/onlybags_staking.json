@@ -1,7 +1,7 @@
 {
   "address": "BysFb46aUfoNS9BEuAA63Ut61qSz4gjiJgNExN8KtYem",
   "metadata": {
-    "name": "onlybags_staking",
+    "name": "berapump_staking",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -17,7 +17,7 @@
         "# Arguments",
         "",
         "* `ctx` - The Anchor context holding the accounts",
-        "* `total_rewards` - Total amount of rewards to be distributed. Note the caller (Onlybags program) of this ix should",
+        "* `total_rewards` - Total amount of rewards to be distributed. Note the caller (Berapump program) of this ix should",
         "first transfer this amount to `reward_token_vault_ata`"
       ],
       "discriminator": [
@@ -980,8 +980,8 @@
         "# Arguments",
         "",
         "* `ctx` - The Anchor context holding the accounts",
-        "* `onlybags_program` - The onlybags program",
-        "* `onlybags_state` - The state of the main Onlybags program",
+        "* `berapump_program` - The berapump program",
+        "* `berapump_state` - The state of the main Berapump program",
         "* `treasury` - The treasury that will collect protocol fees",
         "* `staking_duration` - The total duration of each staking pool i.e. for how long users can stake and earn rewards.",
         "* `staking_delay` - How much the staking will be delayed for (in secs) from the moment the pool is created",
@@ -1052,11 +1052,11 @@
       ],
       "args": [
         {
-          "name": "onlybags_program",
+          "name": "berapump_program",
           "type": "pubkey"
         },
         {
-          "name": "onlybags_state",
+          "name": "berapump_state",
           "type": "pubkey"
         },
         {
@@ -1984,16 +1984,16 @@
             "type": "pubkey"
           },
           {
-            "name": "onlybags_program",
+            "name": "berapump_program",
             "docs": [
-              "The onlybags program"
+              "The berapump program"
             ],
             "type": "pubkey"
           },
           {
-            "name": "onlybags_state",
+            "name": "berapump_state",
             "docs": [
-              "The state of the main Onlybags program"
+              "The state of the main Berapump program"
             ],
             "type": "pubkey"
           },

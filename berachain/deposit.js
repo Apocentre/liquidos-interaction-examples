@@ -1,14 +1,14 @@
 const {ethers} = require('ethers')
 const {toBase} = require("./utils")
-const {onlybagsCurveAddr} = require("./.config.json");
+const {berapumpCurveAddr} = require("./.config.json");
 
 async function main() {
   const [owner] = await ethers.getSigners()
-  const token = await ethers.getContractAt("OnlybagsToken", "0xa13414bc1c40cc87a8e8266734ddadd00098c57c");
-  await token.approve(onlybagsCurveAddr, toBase(1000000000000000))
-  const onlybagsCurve = await ethers.getContractAt("OnlybagsCurve", onlybagsCurveAddr);
+  const token = await ethers.getContractAt("BerapumpToken", "0xa13414bc1c40cc87a8e8266734ddadd00098c57c");
+  await token.approve(berapumpCurveAddr, toBase(1000000000000000))
+  const berapumpCurve = await ethers.getContractAt("BerapumpCurve", berapumpCurveAddr);
 
-  await onlybagsCurve.connect(owner).deposit(
+  await berapumpCurve.connect(owner).deposit(
     "0xa13414bc1c40cc87a8e8266734ddadd00098c57c",
     toBase(10, 10),
   );

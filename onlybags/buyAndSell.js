@@ -13,7 +13,7 @@ const {BN} = anchor.default;
 const {SystemProgram, PublicKey, Keypair, SYSVAR_RENT_PUBKEY} = anchor.web3
 
 const buy = async (web3, buyer, state, token, bondingCurve, amount) => {
-  const program = anchor.workspace.Onlybags;
+  const program = anchor.workspace.Berapump;
   const minAmountOut = new BN(0); // no slippage
   const wsol = constants.wsol;
   const buyerAta = await web3.getAssociatedTokenAddress(token, buyer.publicKey, true, spl.TOKEN_2022_PROGRAM_ID);
@@ -124,7 +124,7 @@ const sell = async (web3, seller, state, token, bondingCurve, amount) => {
 const main = async () => {
   const deployer = provider.wallet.payer;
   const web3 = Web3(deployer.publicKey);
-  const program = anchor.workspace.Onlybags;
+  const program = anchor.workspace.Berapump;
   const tokenName = "TOKEN_HUB_4";
   const tokenSymbol= "SYMBOL_HUB_4";
   const buyer1 = Keypair.fromSecretKey(Buffer.from(buyerKey1))

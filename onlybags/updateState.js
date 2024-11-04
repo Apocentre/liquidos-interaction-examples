@@ -11,8 +11,8 @@ const {PublicKey} = anchor.web3
 
 const main = async () => {
   const state = new PublicKey(config.onlyBagsState);
-  const program = anchor.workspace.Onlybags;
-  const stakingProgram = anchor.workspace.OnlybagsStaking;
+  const program = anchor.workspace.Berapump;
+  const stakingProgram = anchor.workspace.BerapumpStaking;
   const deployer = provider.wallet.payer;
   const web3 = Web3(deployer.publicKey);
 

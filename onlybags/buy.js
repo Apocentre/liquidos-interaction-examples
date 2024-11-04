@@ -14,7 +14,7 @@ const {SystemProgram, PublicKey, Keypair, SYSVAR_RENT_PUBKEY} = anchor.web3
 const main = async () => {
   const deployer = provider.wallet.payer;
   const web3 = Web3(deployer.publicKey);
-  const program = anchor.workspace.Onlybags;
+  const program = anchor.workspace.Berapump;
   const tokenName = "T_CURVE";
   const tokenSymbol= "S_CURVE";
   const amount = new BN(web3.toBase("1", 4));

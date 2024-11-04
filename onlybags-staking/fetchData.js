@@ -7,7 +7,7 @@ import userKey from "../../wallets/deployer_devnet.json" assert { type: "json" }
 const {Keypair, PublicKey} = anchor.web3;
 
 const getTokenAccount = () => {
-  const program = anchor.workspace.Onlybags;
+  const program = anchor.workspace.Berapump;
   const state = new PublicKey(config.onlyBagsState);
   const tokenName = "T_CURVE";
   const tokenSymbol= "S_CURVE";
@@ -15,7 +15,7 @@ const getTokenAccount = () => {
 }
 
 const main = async () => {
-  const program = anchor.workspace.OnlybagsStaking;
+  const program = anchor.workspace.BerapumpStaking;
   const state = new PublicKey(config.stakingState);
   const user = Keypair.fromSecretKey(Buffer.from(userKey))
   const stateData = await program.account.state.fetch(state);
@@ -24,7 +24,7 @@ const main = async () => {
 
   console.log("state: ", {
   owner: stateData.owner.toString(),
-    onlybagsState: stateData.onlybagsState.toString(),
+    berapumpState: stateData.berapumpState.toString(),
     treasury: stateData.treasury.toString(),
     stakingDuration: stateData.stakingDuration.toString(),
     poolCount: stateData.poolCount.toString(),

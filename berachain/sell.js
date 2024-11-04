@@ -1,11 +1,11 @@
 const {ethers} = require('ethers')
-const {onlybagsCurveAddr} = require("./.config.json");
+const {berapumpCurveAddr} = require("./.config.json");
 
 async function main() {
   const [owner] = await ethers.getSigners()
-  const onlybagsCurve = await ethers.getContractAt("OnlybagsCurve", onlybagsCurveAddr);
+  const berapumpCurve = await ethers.getContractAt("BerapumpCurve", berapumpCurveAddr);
 
-  await onlybagsCurve.connect(owner).sell(
+  await berapumpCurve.connect(owner).sell(
     "0xce086638c8c2724c8a11d5d3a04c138cdea5e625",
     "857992163887645743",
     0
