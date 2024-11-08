@@ -1,5 +1,6 @@
 const {ethers} = require("hardhat");
 const {bytecode: tokenBytecode} = require("./abis/BerapumpToken.json");
+const {bytecode: taxTokenBytecode} = require("./abis/BerapumpTaxToken.json");
 
 const encode = (types, values) => {
   const abiCoder = ethers.AbiCoder.defaultAbiCoder();
@@ -14,15 +15,28 @@ const create2Address = (factoryAddr, saltHex, initCode) => {
 
 const create2TokenAddress = (factoryAddr, ctorArgs) => {
   const {
-    maxSupply, berapumpCurveAddr, name, symbol
+    maxSupply, tax, creator, berapumpCurveAddr, name, symbol
   } = ctorArgs;
   
-  const salt = ethers.keccak256(`0x${encode(["string", "string", "string", "uint256"], [name, symbol, "berapump", 80084])}`);
-  const encodedCtorArgs = encode(
-    ["uint", "address", "string", "string"],
-    [maxSupply, berapumpCurveAddr, name, symbol],
-  );
-  const initCode = tokenBytecode + encodedCtorArgs;
+  const salt = ethers.keccak256(`0x${encode(["string", "string", "string", "uint256"], [name, symbol, "berapump", 1111111])}`);
+  let encodedCtorArgs;
+  let initCode;
+
+  if(tax > 0) {
+    encodedCtorArgs = encode(
+      ["uint", "uint", "address", "address", "string", "string"],
+      [maxSupply, tax, creator, berapumpCurveAddr, name, symbol],
+    );
+    
+    initCode = taxTokenBytecode + encodedCtorArgs;
+  } else {
+    encodedCtorArgs = encode(
+      ["uint", "address", "address", "string", "string"],
+      [maxSupply, creator, berapumpCurveAddr, name, symbol],
+    );
+    
+    initCode = tokenBytecode + encodedCtorArgs;
+  }
   
   return create2Address(factoryAddr, salt, initCode);
 }

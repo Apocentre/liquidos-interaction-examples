@@ -13,6 +13,7 @@ async function main() {
 
   await berapumpFactory.connect(owner).deploy({
     maxSupply: toBase(1_000_000_000),
+    tax: 0,
     berapumpCurve: berapumpCurveAddr,
     curveType: CurveTypes.v1,
     name: "b2",
