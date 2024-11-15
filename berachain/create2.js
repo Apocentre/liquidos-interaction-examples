@@ -1,6 +1,6 @@
 const {ethers} = require("hardhat");
-const {bytecode: tokenBytecode} = require("./abis/BerapumpToken.json");
-const {bytecode: taxTokenBytecode} = require("./abis/BerapumpTaxToken.json");
+const {bytecode: tokenBytecode} = require("./abis/BerapumpTokenBytecode.json");
+const {bytecode: taxTokenBytecode} = require("./abis/BerapumpTaxTokenBytecode.json");
 
 const encode = (types, values) => {
   const abiCoder = ethers.AbiCoder.defaultAbiCoder();
