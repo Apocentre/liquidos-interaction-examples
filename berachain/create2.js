@@ -18,7 +18,7 @@ const create2TokenAddress = (factoryAddr, ctorArgs) => {
     maxSupply, tax, creator, berapumpCurveAddr, name, symbol
   } = ctorArgs;
   
-  const salt = ethers.keccak256(`0x${encode(["string", "string", "string", "uint256"], [name, symbol, "berapump", 1111111])}`);
+  const salt = ethers.keccak256(`0x${encode(["string", "string", "string", "uint256"], [name, symbol, "berapump", 80084])}`);
   let encodedCtorArgs;
   let initCode;
 
