@@ -1,7 +1,7 @@
 {
-  "address": "BysFb46aUfoNS9BEuAA63Ut61qSz4gjiJgNExN8KtYem",
+  "address": "HxbEKU2EdXw5xK5XnG8XWK2uMNCj1A69N3YkD65CcRcb",
   "metadata": {
-    "name": "berapump_staking",
+    "name": "onlybags_staking",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -12,12 +12,10 @@
       "docs": [
         "CreatePool",
         "",
-        "Allows admit to update the state",
-        "",
         "# Arguments",
         "",
         "* `ctx` - The Anchor context holding the accounts",
-        "* `total_rewards` - Total amount of rewards to be distributed. Note the caller (Berapump program) of this ix should",
+        "* `total_rewards` - Total amount of rewards to be distributed. Note the caller (Onlybags program) of this ix should",
         "first transfer this amount to `reward_token_vault_ata`"
       ],
       "discriminator": [
@@ -980,8 +978,8 @@
         "# Arguments",
         "",
         "* `ctx` - The Anchor context holding the accounts",
-        "* `berapump_program` - The berapump program",
-        "* `berapump_state` - The state of the main Berapump program",
+        "* `onlybags_program` - The onlybags program",
+        "* `onlybags_state` - The state of the main Onlybags program",
         "* `treasury` - The treasury that will collect protocol fees",
         "* `staking_duration` - The total duration of each staking pool i.e. for how long users can stake and earn rewards.",
         "* `staking_delay` - How much the staking will be delayed for (in secs) from the moment the pool is created",
@@ -1052,11 +1050,11 @@
       ],
       "args": [
         {
-          "name": "berapump_program",
+          "name": "onlybags_program",
           "type": "pubkey"
         },
         {
-          "name": "berapump_state",
+          "name": "onlybags_state",
           "type": "pubkey"
         },
         {
@@ -1821,11 +1819,15 @@
         "kind": "struct",
         "fields": [
           {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
             "name": "reward_token",
             "type": "pubkey"
           },
           {
-            "name": "buyer",
+            "name": "staking_token",
             "type": "pubkey"
           },
           {
@@ -1849,7 +1851,7 @@
             "type": "string"
           },
           {
-            "name": "pool_total_reward",
+            "name": "pool_total_claimed",
             "type": "string"
           }
         ]
@@ -1889,6 +1891,20 @@
             "name": "end_ts",
             "docs": [
               "The timestamp when the pool is closed so no more deposits are allowed"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "staking_duration",
+            "docs": [
+              "The staking period duratio"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "first_stake_ts",
+            "docs": [
+              "The ts of the first stake. We store this value to make sure that all rewards are distributed"
             ],
             "type": "i64"
           },
@@ -1984,16 +2000,16 @@
             "type": "pubkey"
           },
           {
-            "name": "berapump_program",
+            "name": "onlybags_program",
             "docs": [
-              "The berapump program"
+              "The onlybags program"
             ],
             "type": "pubkey"
           },
           {
-            "name": "berapump_state",
+            "name": "onlybags_state",
             "docs": [
-              "The state of the main Berapump program"
+              "The state of the main Onlybags program"
             ],
             "type": "pubkey"
           },
@@ -2105,11 +2121,15 @@
         "kind": "struct",
         "fields": [
           {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
             "name": "reward_token",
             "type": "pubkey"
           },
           {
-            "name": "buyer",
+            "name": "staking_token",
             "type": "pubkey"
           },
           {
@@ -2133,7 +2153,7 @@
             "type": "string"
           },
           {
-            "name": "pool_total_reward",
+            "name": "pool_total_claimed",
             "type": "string"
           }
         ]

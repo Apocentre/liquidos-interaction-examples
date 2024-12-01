@@ -1,10 +1,10 @@
 {
-  "address": "ADL8VVK6QMFPEZmkgeGSSyQrfnaRD7FHtDzWjh6c4QCX",
+  "address": "Ft6enkagV1983D6udeJJxAExAoRBhRnYBsHhbBqnoUtY",
   "metadata": {
-    "name": "berapump",
+    "name": "onlybags",
     "version": "0.1.0",
     "spec": "0.1.0",
-    "description": "berapump main program"
+    "description": "onlybags main program"
   },
   "instructions": [
     {
@@ -1203,6 +1203,104 @@
       "args": []
     },
     {
+      "name": "resize_bonding_curve",
+      "docs": [
+        "ResizeBondingCurve",
+        "",
+        "Allows admin to resize the size of the bonding_curve account",
+        "",
+        "# Arguments",
+        "",
+        "* `_ctx` - The Anchor context holding the accounts",
+        "* `_size` - The new size of the account. Note! don't pass a smaller size than the current one",
+        "because it will end up is loss of data. Check the size manually on the explorer and pass",
+        "a higher value."
+      ],
+      "discriminator": [
+        116,
+        84,
+        54,
+        22,
+        171,
+        83,
+        236,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_size",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "resize_state",
+      "docs": [
+        "ResizeState",
+        "",
+        "Allows admin to resize the size of the state account",
+        "",
+        "# Arguments",
+        "",
+        "* `_ctx` - The Anchor context holding the accounts",
+        "* `_size` - The new size of the account. Note! don't pass a smaller size than the current one",
+        "because it will end up is loss of data. Check the size manually on the explorer and pass",
+        "a higher value."
+      ],
+      "discriminator": [
+        45,
+        84,
+        182,
+        1,
+        214,
+        146,
+        197,
+        243
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_size",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "sell",
       "docs": [
         "Sell",
@@ -1447,6 +1545,19 @@
       ]
     },
     {
+      "name": "Migration",
+      "discriminator": [
+        23,
+        183,
+        248,
+        55,
+        96,
+        216,
+        172,
+        96
+      ]
+    },
+    {
       "name": "State",
       "discriminator": [
         216,
@@ -1647,13 +1758,6 @@
             "type": "u64"
           },
           {
-            "name": "staking_allocation",
-            "docs": [
-              "Staking allocation. The exact amount that will be distributed though the staking program"
-            ],
-            "type": "u64"
-          },
-          {
             "name": "price",
             "docs": [
               "The current price of the curve in lamports"
@@ -1673,6 +1777,13 @@
               "Is this pool closed? Closed means sol target reached"
             ],
             "type": "u8"
+          },
+          {
+            "name": "staking_allocation",
+            "docs": [
+              "Staking allocation. The exact amount that will be distributed though the staking program"
+            ],
+            "type": "u64"
           }
         ]
       }
@@ -1735,6 +1846,18 @@
           },
           {
             "name": "CurveV2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Migration",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "migrated_type",
+            "type": "pubkey"
           }
         ]
       }
@@ -1803,24 +1926,6 @@
             "type": "pubkey"
           },
           {
-            "name": "staking_program",
-            "docs": [
-              "The staking program Id"
-            ],
-            "type": {
-              "option": "pubkey"
-            }
-          },
-          {
-            "name": "staking_program_state",
-            "docs": [
-              "The state of the staking program"
-            ],
-            "type": {
-              "option": "pubkey"
-            }
-          },
-          {
             "name": "protocol_fee",
             "docs": [
               "Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium"
@@ -1847,6 +1952,24 @@
               "The total supply of the newly created tokens in the lowest denomination i.e. decimals included"
             ],
             "type": "u64"
+          },
+          {
+            "name": "staking_program",
+            "docs": [
+              "The staking program Id"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "staking_program_state",
+            "docs": [
+              "The state of the staking program"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
           },
           {
             "name": "staking_allocation",
