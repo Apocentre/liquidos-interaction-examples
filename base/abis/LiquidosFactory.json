@@ -128,7 +128,7 @@
       ],
       "name": "deploy",
       "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "payable",
       "type": "function"
     }
   ]

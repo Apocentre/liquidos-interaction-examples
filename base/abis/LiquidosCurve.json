@@ -261,6 +261,11 @@
           "type": "address"
         },
         {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
           "internalType": "uint256",
           "name": "amount",
           "type": "uint256"
@@ -494,6 +499,19 @@
         }
       ],
       "name": "sell",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract Liq",
+          "name": "_liqToken",
+          "type": "address"
+        }
+      ],
+      "name": "setLiqToken",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
