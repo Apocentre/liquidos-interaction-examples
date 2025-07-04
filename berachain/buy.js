@@ -8,6 +8,7 @@ async function main() {
 
   await berapumpCurve.connect(owner).buy(
     "0xa13414bc1c40cc87a8e8266734ddadd00098c57c",
+    await owner.getAddress(),
     toBase(1, 10),
     0,
     {value: toBase(1, 10)}

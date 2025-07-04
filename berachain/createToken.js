@@ -18,7 +18,7 @@ async function main() {
     curveType: CurveTypes.v1,
     name: "b2",
     symbol: "B2",
-  });
+  }, {value: toBase(1, 15)}); // if set value then the creator will make the first purchase for that amount
 }
 
 // We recommend this pattern to be able to use async/await everywhere
