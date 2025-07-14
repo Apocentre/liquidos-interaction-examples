@@ -1,0 +1,2107 @@
+{
+  "address": "HUGG29eLrsEjGyedD56AdFnZgejSJ7HuEB4wmNsLFfGV",
+  "metadata": {
+    "name": "onlybags",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "onlybags main program"
+  },
+  "instructions": [
+    {
+      "name": "buy",
+      "docs": [
+        "Buy",
+        "",
+        "Buy tokens",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `amount` - Amount of SOL buyer sells",
+        "* `min_amount_out` - Min amount of tokens expected to receive (slippage protection)"
+      ],
+      "discriminator": [
+        102,
+        6,
+        61,
+        18,
+        1,
+        218,
+        235,
+        234
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "treasury",
+          "writable": true
+        },
+        {
+          "name": "token_creator",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyer_wsol_ata",
+          "docs": [
+            "The ATA of the WSOL token that is owned by the buyer. Create one if no already exists"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "wsol_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "wsol_token"
+        },
+        {
+          "name": "token",
+          "writable": true
+        },
+        {
+          "name": "amm_config",
+          "address": "9zSzfkYy6awexsHvmggeH36pfVUdDGyCcwmjT3AQPBj6"
+        },
+        {
+          "name": "buyer_ata",
+          "docs": [
+            "The ATA of the  token that is owned by the buyer. Create one if no already exists"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "ix_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95,
+                  95,
+                  101,
+                  118,
+                  101,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_out",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "create_staking_pool",
+      "docs": [
+        "CreateStakingPool",
+        "",
+        "Creates a new staking pool",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts"
+      ],
+      "discriminator": [
+        104,
+        58,
+        70,
+        37,
+        225,
+        212,
+        145,
+        93
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token",
+          "writable": true
+        },
+        {
+          "name": "staking_state",
+          "writable": true
+        },
+        {
+          "name": "pool_info",
+          "writable": true
+        },
+        {
+          "name": "pool_authority",
+          "writable": true
+        },
+        {
+          "name": "staking_token"
+        },
+        {
+          "name": "staking_token_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "reward_token_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "staking_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_tax_token",
+      "docs": [
+        "CreateToken",
+        "",
+        "Creates a new tax token",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `name` - The name of the token (used in the metadata account)",
+        "* `symbol` - The symbol of the token (used in the metadata account)",
+        "* `uri` - The uri of the token (used in the metadata account)",
+        "* `fee_bps` - Transfer fee BPS",
+        "* `max_fee` - Max fee that can be applied",
+        "* `curve_type` - The type of the curve. The numner defines the version e.g. CurveV1 then curve_type = 1"
+      ],
+      "discriminator": [
+        241,
+        129,
+        50,
+        216,
+        234,
+        90,
+        82,
+        212
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "token",
+          "docs": [
+            "take place in the processor function."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  110,
+                  108,
+                  121,
+                  98,
+                  97,
+                  103,
+                  115,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  33,
+                  32,
+                  40,
+                  34,
+                  123,
+                  125,
+                  45,
+                  123,
+                  125,
+                  34,
+                  44,
+                  32,
+                  110,
+                  97,
+                  109,
+                  101,
+                  44,
+                  32,
+                  115,
+                  121,
+                  109,
+                  98,
+                  111,
+                  108,
+                  41
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "curve_ata",
+          "docs": [
+            "in the processor function"
+          ],
+          "writable": true
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_creator",
+          "docs": [
+            "The user that is creating the token"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        },
+        {
+          "name": "ix_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95,
+                  95,
+                  101,
+                  118,
+                  101,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        },
+        {
+          "name": "fee_bps",
+          "type": "u16"
+        },
+        {
+          "name": "max_fee",
+          "type": "u64"
+        },
+        {
+          "name": "curve_type",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "create_token",
+      "docs": [
+        "CreateToken",
+        "",
+        "Creates a new token",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `name` - The name of the token (used in the metadata account)",
+        "* `symbol` - The symbol of the token (used in the metadata account)",
+        "* `uri` - The uri of the token (used in the metadata account)",
+        "* `curve_type` - The type of the curve. The numner defines the version e.g. CurveV1 then curve_type = 1"
+      ],
+      "discriminator": [
+        84,
+        52,
+        204,
+        228,
+        24,
+        140,
+        234,
+        75
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "token",
+          "docs": [
+            "The Mint account of the newly created token."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  110,
+                  108,
+                  121,
+                  98,
+                  97,
+                  103,
+                  115,
+                  95,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  111,
+                  114,
+                  109,
+                  97,
+                  116,
+                  33,
+                  32,
+                  40,
+                  34,
+                  123,
+                  125,
+                  45,
+                  123,
+                  125,
+                  34,
+                  44,
+                  32,
+                  110,
+                  97,
+                  109,
+                  101,
+                  44,
+                  32,
+                  115,
+                  121,
+                  109,
+                  98,
+                  111,
+                  108,
+                  41
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "curve_ata",
+          "docs": [
+            "The ATA that will hold the liquidity of the curve (token side)."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "bonding_curve"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_creator",
+          "docs": [
+            "The user that is creating the token"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "ix_sysvar",
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95,
+                  95,
+                  101,
+                  118,
+                  101,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        },
+        {
+          "name": "curve_type",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "docs": [
+        "Initialize",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `treasury` - The treasury account that receives fees",
+        "* `protocol_fee` - Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
+        "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
+        "* `staking_allocation` - Staking allocation. The exact amount that will be distributed though the staking program"
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "treasury",
+          "type": "pubkey"
+        },
+        {
+          "name": "protocol_fee",
+          "type": "u64"
+        },
+        {
+          "name": "trade_fee_bps",
+          "type": "u64"
+        },
+        {
+          "name": "creator_fee",
+          "type": "u64"
+        },
+        {
+          "name": "total_token_supply",
+          "type": "u64"
+        },
+        {
+          "name": "staking_allocation",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "move_liquidity",
+      "docs": [
+        "MoveLiquidity",
+        "",
+        "Moves the liquidity to Raydium",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts"
+      ],
+      "discriminator": [
+        20,
+        32,
+        95,
+        239,
+        213,
+        242,
+        237,
+        45
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token",
+          "writable": true
+        },
+        {
+          "name": "buyer_ata",
+          "docs": [
+            "The ATA of the  token that is owned by the buyer. Create one if no already exists"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "buyer_wsol_ata",
+          "docs": [
+            "The ATA of the WSOL token that is owned by the buyer. Create one if no already exists"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "buyer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "wsol_token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "amm_config",
+          "address": "9zSzfkYy6awexsHvmggeH36pfVUdDGyCcwmjT3AQPBj6"
+        },
+        {
+          "name": "raydium_authority"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "wsol_token"
+        },
+        {
+          "name": "lp_mint",
+          "writable": true
+        },
+        {
+          "name": "creator_lp_token",
+          "writable": true
+        },
+        {
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "name": "create_pool_fee",
+          "writable": true
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        },
+        {
+          "name": "cp_swap_program",
+          "address": "CPMDWBwJDtYax9qW7AyRuVC19Cc4L4Vcy4n2BHAbHkCW"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "resize_bonding_curve",
+      "docs": [
+        "ResizeBondingCurve",
+        "",
+        "Allows admin to resize the size of the bonding_curve account",
+        "",
+        "# Arguments",
+        "",
+        "* `_ctx` - The Anchor context holding the accounts",
+        "* `_size` - The new size of the account. Note! don't pass a smaller size than the current one",
+        "because it will end up is loss of data. Check the size manually on the explorer and pass",
+        "a higher value."
+      ],
+      "discriminator": [
+        116,
+        84,
+        54,
+        22,
+        171,
+        83,
+        236,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_size",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "resize_state",
+      "docs": [
+        "ResizeState",
+        "",
+        "Allows admin to resize the size of the state account",
+        "",
+        "# Arguments",
+        "",
+        "* `_ctx` - The Anchor context holding the accounts",
+        "* `_size` - The new size of the account. Note! don't pass a smaller size than the current one",
+        "because it will end up is loss of data. Check the size manually on the explorer and pass",
+        "a higher value."
+      ],
+      "discriminator": [
+        45,
+        84,
+        182,
+        1,
+        214,
+        146,
+        197,
+        243
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "_size",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "sell",
+      "docs": [
+        "Sell",
+        "",
+        "Sell tokens",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `token_amount` - Amount of tokens seller sells",
+        "* `min_sol_amount_out` - Min amount of SOL expected to receive (slippage protection)"
+      ],
+      "discriminator": [
+        51,
+        230,
+        133,
+        164,
+        1,
+        127,
+        131,
+        173
+      ],
+      "accounts": [
+        {
+          "name": "seller",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ]
+        },
+        {
+          "name": "treasury",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve",
+          "docs": [
+            "The state of the bonding curve that will be used during buys and sells"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  110,
+                  100,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  117,
+                  114,
+                  118,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "state"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token",
+          "writable": true
+        },
+        {
+          "name": "seller_ata",
+          "docs": [
+            "The ATA of the  token that is owned by the seller. Create one if no already exists"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "seller"
+              },
+              {
+                "kind": "account",
+                "path": "token_2022"
+              },
+              {
+                "kind": "account",
+                "path": "token"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_2022"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95,
+                  95,
+                  101,
+                  118,
+                  101,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "token_amount",
+          "type": "u64"
+        },
+        {
+          "name": "min_sol_amount_out",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_state",
+      "docs": [
+        "UpdateState",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The Anchor context holding the accounts",
+        "* `staking_program` - The staking program Id",
+        "* `staking_program_state` - The state of the staking program",
+        "* `protocol_fee` - Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `trade_fee_bps` - Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL",
+        "* `creator_fee` - Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium",
+        "* `total_token_supply` - The total supply of the newly created tokens in the lowest denomination i.e. decimals included",
+        "* `staking_allocation` - Staking allocation. The exact amount that will be distributed though the staking program"
+      ],
+      "discriminator": [
+        135,
+        112,
+        215,
+        75,
+        247,
+        185,
+        53,
+        176
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "docs": [
+            "The state account of each instance of this program"
+          ],
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "staking_program",
+          "type": "pubkey"
+        },
+        {
+          "name": "staking_program_state",
+          "type": "pubkey"
+        },
+        {
+          "name": "protocol_fee",
+          "type": "u64"
+        },
+        {
+          "name": "trade_fee_bps",
+          "type": "u64"
+        },
+        {
+          "name": "creator_fee",
+          "type": "u64"
+        },
+        {
+          "name": "total_token_supply",
+          "type": "u64"
+        },
+        {
+          "name": "staking_allocation",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BondingCurve",
+      "discriminator": [
+        23,
+        183,
+        248,
+        55,
+        96,
+        216,
+        172,
+        96
+      ]
+    },
+    {
+      "name": "Migration",
+      "discriminator": [
+        23,
+        183,
+        248,
+        55,
+        96,
+        216,
+        172,
+        96
+      ]
+    },
+    {
+      "name": "State",
+      "discriminator": [
+        216,
+        146,
+        107,
+        94,
+        104,
+        75,
+        182,
+        177
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "BuyEvent",
+      "discriminator": [
+        103,
+        244,
+        82,
+        31,
+        44,
+        245,
+        119,
+        119
+      ]
+    },
+    {
+      "name": "SellEvent",
+      "discriminator": [
+        62,
+        47,
+        55,
+        10,
+        165,
+        3,
+        220,
+        42
+      ]
+    },
+    {
+      "name": "TokenCreatedEvent",
+      "discriminator": [
+        96,
+        122,
+        113,
+        138,
+        50,
+        227,
+        149,
+        57
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "DecimalError",
+      "msg": "Decimal error"
+    }
+  ],
+  "types": [
+    {
+      "name": "BondingCurve",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "curve_type",
+            "docs": [
+              "The type of the curve. This implement the main logic of the curve i.e. the formulas"
+            ],
+            "type": {
+              "defined": {
+                "name": "CurveType"
+              }
+            }
+          },
+          {
+            "name": "token_creator",
+            "docs": [
+              "The creator of the token this bonding curve is associated with"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "token",
+            "docs": [
+              "The mint account of the token associated with this curve"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "protocol_fee",
+            "docs": [
+              "Current protocol fees (fixed lamports amount).. This is applied when the pool is created on Raydium"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "trade_fee_bps",
+            "docs": [
+              "Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "creator_fee",
+            "docs": [
+              "Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "circulating_supply",
+            "docs": [
+              "Current circulating supply of the token in the lowest denomination i.e. decimals included"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_supply",
+            "docs": [
+              "The total supply of the newly created tokens in the lowest denomination i.e. decimals included"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "reserve_token_balance",
+            "docs": [
+              "The balance of reserve token i.e. SOL in the lowest denomination (lamport) i.e. decimals included"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "price",
+            "docs": [
+              "The current price of the curve in lamports"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "The PDA bump of this account"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "closed",
+            "docs": [
+              "Is this pool closed? Closed means sol target reached"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "staking_allocation",
+            "docs": [
+              "Staking allocation. The exact amount that will be distributed though the staking program"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BuyEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "curve_type",
+            "type": "u8"
+          },
+          {
+            "name": "buyer",
+            "type": "pubkey"
+          },
+          {
+            "name": "token",
+            "type": "pubkey"
+          },
+          {
+            "name": "sol_amount",
+            "type": "string"
+          },
+          {
+            "name": "token_amount",
+            "type": "string"
+          },
+          {
+            "name": "is_complete",
+            "type": "bool"
+          },
+          {
+            "name": "price",
+            "type": "string"
+          },
+          {
+            "name": "circulating_supply",
+            "type": "string"
+          },
+          {
+            "name": "sol_balance",
+            "type": "string"
+          },
+          {
+            "name": "buyer_balance",
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CurveType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "CurveV1"
+          },
+          {
+            "name": "CurveV2"
+          },
+          {
+            "name": "CurveV3"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Migration",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "migrated_type",
+            "type": {
+              "option": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SellEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "curve_type",
+            "type": "u8"
+          },
+          {
+            "name": "seller",
+            "type": "pubkey"
+          },
+          {
+            "name": "token",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_amount",
+            "type": "string"
+          },
+          {
+            "name": "sol_amount",
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "type": "string"
+          },
+          {
+            "name": "circulating_supply",
+            "type": "string"
+          },
+          {
+            "name": "sol_balance",
+            "type": "string"
+          },
+          {
+            "name": "seller_balance",
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "State",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "docs": [
+              "The owner that can handle various admin related tasks"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "docs": [
+              "The treasury account that receives fees"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "protocol_fee",
+            "docs": [
+              "Current protocol fees (fixed lamports amount). This is applied when the pool is created on Raydium"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "trade_fee_bps",
+            "docs": [
+              "Current trade fees (BPS). This is applied on each trade that takes place. Fees collected in SOL"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "creator_fee",
+            "docs": [
+              "Current creator fees (fixed lamports amount). This is applied when the pool is created on Raydium"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_token_supply",
+            "docs": [
+              "The total supply of the newly created tokens in the lowest denomination i.e. decimals included"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "staking_program",
+            "docs": [
+              "The staking program Id"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "staking_program_state",
+            "docs": [
+              "The state of the staking program"
+            ],
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "staking_allocation",
+            "docs": [
+              "Staking allocation. The exact amount that will be distributed though the staking program"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenCreatedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "curve_type",
+            "type": "u8"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "address",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "curve",
+            "type": "pubkey"
+          },
+          {
+            "name": "tax",
+            "type": {
+              "option": "u16"
+            }
+          },
+          {
+            "name": "version",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}
